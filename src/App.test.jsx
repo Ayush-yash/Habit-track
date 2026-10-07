@@ -9,18 +9,18 @@ describe('Habit Tracker App', () => {
 
   it('renders the title', () => {
     render(<App />);
-    expect(screen.getByText('Daily Habit Tracker')).toBeInTheDocument();
+    expect(screen.getByText('HabitFlow')).toBeInTheDocument();
   });
 
   it('adds a new habit', () => {
     render(<App />);
-    const input = screen.getByPlaceholderText('➕ Add a new habit (Gym, Study, etc.)');
+    const input = screen.getByPlaceholderText('What habit do you want to build?');
     const button = screen.getByText('Add');
 
     fireEvent.change(input, { target: { value: 'Read a book' } });
     fireEvent.click(button);
 
     expect(screen.getByText('Read a book')).toBeInTheDocument();
-    expect(screen.getByText('Total Habits: 1')).toBeInTheDocument();
+    expect(screen.getByText('1')).toBeInTheDocument(); // Total Habits value
   });
 });

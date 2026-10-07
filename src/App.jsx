@@ -32,7 +32,7 @@ function App() {
       completed: false
     }
 
-    setHabits([...habits, habit])
+    setHabits([habit, ...habits]) // Add new habit at the top
     setNewHabit('')
   }
 
@@ -62,14 +62,28 @@ function App() {
 
   const totalHabits = habits.length
   const completedHabits = habits.filter(h => h.completed).length
+  const completionRate = totalHabits === 0 ? 0 : Math.round((completedHabits / totalHabits) * 100)
 
   return (
     <div className="app-container">
-      <h1>Daily Habit Tracker</h1>
+      <header className="header">
+        <h1>HabitFlow</h1>
+        <p style={{color: 'var(--text-muted)'}}>Build better routines, one day at a time.</p>
+      </header>
       
-      <div className="stats">
-        <span>Total Habits: {totalHabits}</span>
-        <span>Completed: {completedHabits}</span>
+      <div className="stats-container">
+        <div className="stat-card">
+          <span className="stat-value">{totalHabits}</span>
+          <span className="stat-label">Total Habits</span>
+        </div>
+        <div className="stat-card">
+          <span className="stat-value" style={{color: 'var(--success)'}}>{completedHabits}</span>
+          <span className="stat-label">Completed</span>
+        </div>
+        <div className="stat-card">
+          <span className="stat-value" style={{color: 'var(--warning)'}}>{completionRate}%</span>
+          <span className="stat-label">Success Rate</span>
+        </div>
       </div>
 
       <form className="add-habit-form" onSubmit={handleAddHabit}>
@@ -77,47 +91,60 @@ function App() {
           type="text" 
           value={newHabit}
           onChange={(e) => setNewHabit(e.target.value)}
-          placeholder="➕ Add a new habit (Gym, Study, etc.)"
+          placeholder="What habit do you want to build?"
         />
-        <button type="submit">Add</button>
+        <button type="submit" className="btn-add">Add</button>
       </form>
 
-      <ul className="habit-list">
-        {habits.map(habit => (
-          <li key={habit.id} className={`habit-item ${habit.completed ? 'completed' : ''}`}>
-            {editingId === habit.id ? (
-              <>
-                <input 
-                  type="text" 
-                  className="edit-input"
-                  value={editValue}
-                  onChange={(e) => setEditValue(e.target.value)}
-                  autoFocus
-                />
-                <div className="habit-actions">
-                  <button className="btn-save" onClick={() => saveEdit(habit.id)}>Save</button>
-                  <button className="btn-cancel" onClick={() => setEditingId(null)}>Cancel</button>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="habit-content">
+      {habits.length === 0 ? (
+        <div className="empty-state">
+          <div style={{fontSize: '3rem', marginBottom: '1rem'}}>🌱</div>
+          <h3>No habits yet</h3>
+          <p>Start your journey by adding a habit above.</p>
+        </div>
+      ) : (
+        <ul className="habit-list">
+          {habits.map(habit => (
+            <li key={habit.id} className={`habit-item ${habit.completed ? 'completed' : ''}`}>
+              {editingId === habit.id ? (
+                <>
                   <input 
-                    type="checkbox" 
-                    checked={habit.completed}
-                    onChange={() => toggleComplete(habit.id)}
+                    type="text" 
+                    className="edit-input"
+                    value={editValue}
+                    onChange={(e) => setEditValue(e.target.value)}
+                    autoFocus
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') saveEdit(habit.id)
+                      if (e.key === 'Escape') setEditingId(null)
+                    }}
                   />
-                  <span className="habit-text">{habit.text}</span>
-                </div>
-                <div className="habit-actions">
-                  <button className="btn-edit" onClick={() => startEditing(habit)}>✏️ Edit</button>
-                  <button className="btn-delete" onClick={() => deleteHabit(habit.id)}>🗑️ Delete</button>
-                </div>
-              </>
-            )}
-          </li>
-        ))}
-      </ul>
+                  <div className="habit-actions">
+                    <button className="btn-save" onClick={() => saveEdit(habit.id)}>Save</button>
+                    <button className="btn-cancel" onClick={() => setEditingId(null)}>Cancel</button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="habit-content">
+                    <input 
+                      type="checkbox" 
+                      className="custom-checkbox"
+                      checked={habit.completed}
+                      onChange={() => toggleComplete(habit.id)}
+                    />
+                    <span className="habit-text">{habit.text}</span>
+                  </div>
+                  <div className="habit-actions">
+                    <button className="action-btn btn-edit" onClick={() => startEditing(habit)} title="Edit">✏️</button>
+                    <button className="action-btn btn-delete" onClick={() => deleteHabit(habit.id)} title="Delete">🗑️</button>
+                  </div>
+                </>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   )
 }
