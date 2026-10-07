@@ -1,0 +1,143 @@
+.app-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: #e0f7fa;
+  border-radius: 4px;
+  font-weight: bold;
+  color: #006064;
+}
+
+.add-habit-form {
+  display: flex;
+  margin-bottom: 2rem;
+}
+
+.add-habit-form input {
+  flex: 1;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+  outline: none;
+}
+
+.add-habit-form button {
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  background-color: #00796b;
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.add-habit-form button:hover {
+  background-color: #004d40;
+}
+
+.habit-list {
+  list-style: none;
+  padding: 0;
+}
+
+.habit-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: white;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
+}
+
+.habit-item.completed {
+  opacity: 0.7;
+  background-color: #f0f0f0;
+}
+
+.habit-item.completed .habit-text {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.habit-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+
+.habit-content input[type="checkbox"] {
+  width: 1.2rem;
+  height: 1.2rem;
+  cursor: pointer;
+}
+
+.habit-text {
+  font-size: 1.1rem;
+  word-break: break-all;
+}
+
+.edit-input {
+  flex: 1;
+  padding: 0.5rem;
+  font-size: 1rem;
+  margin-right: 1rem;
+}
+
+.habit-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-edit, .btn-delete, .btn-save, .btn-cancel {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-edit {
+  background-color: #ffb300;
+  color: white;
+}
+
+.btn-delete {
+  background-color: #e53935;
+  color: white;
+}
+
+.btn-save {
+  background-color: #43a047;
+  color: white;
+}
+
+.btn-cancel {
+  background-color: #757575;
+  color: white;
+}
+
+button:hover {
+  opacity: 0.9;
+}
